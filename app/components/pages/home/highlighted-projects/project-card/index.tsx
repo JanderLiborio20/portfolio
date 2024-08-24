@@ -1,5 +1,7 @@
+import { Link } from '@/app/components/link';
 import { TechBadge } from '@/app/components/tech-badge';
 import Image from 'next/image';
+import { HiArrowNarrowRight } from 'react-icons/hi';
 
 export const ProjectCard = () => {
   return (
@@ -37,6 +39,11 @@ export const ProjectCard = () => {
             <TechBadge key={index} name="Nest.js" />
           ))}
         </div>
+
+        <Link href="/project/book-wise">
+          Ver projeto
+          <HiArrowNarrowRight />
+        </Link>
       </div>
     </div>
   );
