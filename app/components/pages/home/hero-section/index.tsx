@@ -4,21 +4,15 @@ import Image from 'next/image';
 import { TechBadge } from '../../../tech-badge';
 import { Button } from '../../../button';
 import { HiArrowNarrowRight } from 'react-icons/hi';
-import {
-  TbBrandGithub,
-  TbBrandLinkedin,
-  TbBrandYoutube,
-  TbBrandWhatsapp,
-} from 'react-icons/tb';
+import { HomePageInfo } from '@/app/types/page-info';
+import { RichText } from '@/app/components/rich-text';
+import { CMSIcon } from '@/app/components/cms-icon';
 
-const MOCK_CONTACTS = [
-  { url: 'http://github.com.br', icon: <TbBrandGithub /> },
-  { url: 'http://github.com.br', icon: <TbBrandLinkedin /> },
-  { url: 'http://github.com.br', icon: <TbBrandYoutube /> },
-  { url: 'http://github.com.br', icon: <TbBrandWhatsapp /> },
-];
+type HomeSectionProps = {
+  homeInfo: HomePageInfo;
+};
 
-export const HeroSection = () => {
+export const HeroSection = ({ homeInfo }: HomeSectionProps) => {
   const handleContact = () => {
     const contactSection = document.querySelector('#contact');
 
@@ -26,23 +20,20 @@ export const HeroSection = () => {
       contactSection.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
   return (
-    <section className="w-full lg:h-[755px] bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[110px]">
+    <section className="w-full lg:h-[755px]  bg-hero-image bg-cover bg-center bg-no-repeat flex flex-col justify-end pb-10 sm:pb-32 py-32 lg:pb-[110px]">
       <div className="container flex items-start justify-between flex-col-reverse lg:flex-row">
         <div className="w-full lg:max-w-[530px]">
           <p className="font-mono text-emerald-400 ">Olá, meu nome é</p>
           <h2 className="text-4xl font-medium mt-2">Jander Liborio</h2>
-          <p className="text-gray-400 my-6 text-sm sm:text-base">
-            Olá, meu nome é Jander Liborio e sou um desenvolvedor front-end
-            apaixonado por tecnologia. Com mais de 2 anos de experiência. Meu
-            objetivo é criar interfaces de usuário bonitas e funcionais, além de
-            liderar equipes técnicas em projetos desafiadores. Estou sempre
-            aberto a novas oportunidades e desafios.
-          </p>
+          <div className="text-gray-400 my-6 text-sm sm:text-base">
+            <RichText content={homeInfo.introduction.raw} />
+          </div>
 
           <div className="flex flex-wrap gap-x-2 gap-y-3 lg:max-w-[340px]">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <TechBadge name="Nest.js" key={`tect-${index}`} />
+            {homeInfo.technologies.map((tech) => (
+              <TechBadge name={tech.name} key={tech.name} />
             ))}
           </div>
 
@@ -52,27 +43,29 @@ export const HeroSection = () => {
             </Button>
 
             <div className="text-2xl text-gray-600 flex items-center h-20 gap-3">
-              {MOCK_CONTACTS.map((contact, index) => (
+              {homeInfo.socials.map((contact, index) => (
                 <a
                   href={contact.url}
-                  key={`contact-${index}`}
+                  key={`contact-${contact}`}
                   target="_blank"
                   className="hover:text-gray-100 transition-colors"
                   rel="noreferrer"
                 >
-                  {contact.icon}
+                  <CMSIcon icon={contact.iconSvg} />
                 </a>
               ))}
             </div>
           </div>
         </div>
-        <Image
-          width={420}
-          height={404}
-          src="/images/fotojped.jpeg"
-          alt="foto de perfil do jander liborio"
-          className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
-        />
+        <div className="w-full h-full flex items-center justify-end">
+          <Image
+            width={420}
+            height={404}
+            src={homeInfo.profilePicture.url}
+            alt="foto de perfil do jander liborio"
+            className="w-[300px] h-[300px] lg:w-[420px] lg:h-[404px] mb-6 lg:mb-0 shadow-2xl rounded-lg object-cover"
+          />
+        </div>
       </div>
     </section>
   );
