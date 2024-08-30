@@ -19,6 +19,13 @@ export type HomePageInfo = {
   knownTechs: KnownTech[];
   highlightProjects: Project[];
 };
+export type ProjectsPageData = {
+  projects: Project[];
+};
+
+export type ProjectPageData = {
+  project: Project;
+};
 
 export type HomePageData = {
   page: HomePageInfo;
