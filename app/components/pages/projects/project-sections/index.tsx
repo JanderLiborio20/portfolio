@@ -1,4 +1,4 @@
-'use-client';
+'use client';
 
 import { ProjectSection } from '@/app/types/projects';
 import Image from 'next/image';

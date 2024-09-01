@@ -71,7 +71,7 @@ export const ProjectCard = ({ project }: ProjectCardProps) => {
           ))}
         </div>
 
-        <Link href={`/project/${project.slug}`}>
+        <Link href={`/projects/${project.slug}`}>
           Ver projeto
           <HiArrowNarrowRight />
         </Link>
